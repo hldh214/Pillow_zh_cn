@@ -1,8 +1,8 @@
 教程
-===
+==============
 
 使用 Image 类
-----------
+--------------
 
 The most important class in the Python Imaging Library is the
 :py:class:`~PIL.Image.Image` class, defined in the module with the same name.
