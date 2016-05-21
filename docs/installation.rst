@@ -1,23 +1,23 @@
-Installation
-============
+安装指引
+=========
 
-Warnings
+警告
 --------
 
-.. warning:: Pillow and PIL cannot co-exist in the same environment. Before installing Pillow, please uninstall PIL.
+.. warning:: Pillow 和 PIL 不能同时存在. 请务必在安装Pillow之前卸载PIL.
 
-.. warning:: Pillow >= 1.0 no longer supports "import Image". Please use "from PIL import Image" instead.
+.. warning:: Pillow >= 1.0 的版本不再支持 "import Image". 请使用 "from PIL import Image" 来代替之.
 
-.. warning:: Pillow >= 2.1.0 no longer supports "import _imaging". Please use "from PIL.Image import core as _imaging" instead.
+.. warning:: Pillow >= 2.1.0 的版本不再支持 "import _imaging". 请使用 "from PIL.Image import core as _imaging" 来代替之.
 
-Notes
+注解
 -----
 
-.. note:: Pillow < 2.0.0 supports Python versions 2.4, 2.5, 2.6, 2.7.
+.. note:: Pillow < 2.0.0 支持这些 Python 版本: 2.4, 2.5, 2.6, 2.7.
 
-.. note:: Pillow >= 2.0.0 supports Python versions 2.6, 2.7, 3.2, 3.3, 3.4, 3.5
+.. note:: Pillow >= 2.0.0 支持这些 Python 版本: 2.6, 2.7, 3.2, 3.3, 3.4, 3.5
 
-Basic Installation
+一般环境下安装
 ------------------
 
 .. note::
@@ -43,7 +43,7 @@ Or use :command:`easy_install` for installing `Python Eggs
     $ easy_install Pillow
 
 
-Windows Installation
+Windows环境安装
 ^^^^^^^^^^^^^^^^^^^^
 
 We provide Pillow binaries for Windows compiled for the matrix of
@@ -58,7 +58,7 @@ or::
   $ easy_install Pillow
 
 
-OS X Installation
+OS X环境安装
 ^^^^^^^^^^^^^^^^^
 
 We provide binaries for OS X  for each of the supported Python versions
@@ -67,7 +67,7 @@ except OpenJPEG::
 
   $ pip install Pillow
 
-Linux Installation
+Linux环境安装
 ^^^^^^^^^^^^^^^^^^
 
 We do not provide binaries for Linux. Most major Linux distributions,
@@ -76,7 +76,7 @@ packages that previously contained PIL e.g. ``python-imaging``. Please
 consider using native operating system packages first to avoid
 installation problems and/or missing library support later.
 
-FreeBSD Installation
+FreeBSD环境安装
 ^^^^^^^^^^^^^^^^^^^^
 
 Pillow can be installed on FreeBSD via the official Ports or Packages systems:
@@ -97,7 +97,7 @@ Pillow can be installed on FreeBSD via the official Ports or Packages systems:
     and against Python 2.x and 3.x.
 
 
-Building From Source
+使用源代码编译
 --------------------
 
 Download and extract the `compressed archive from PyPI`_.
