@@ -43,7 +43,7 @@ Or use :command:`easy_install` for installing `Python Eggs
     $ easy_install Pillow
 
 
-Windows环境安装
+Windows环境下安装
 ^^^^^^^^^^^^^^^^^^^^
 
 We provide Pillow binaries for Windows compiled for the matrix of
@@ -58,7 +58,7 @@ or::
   $ easy_install Pillow
 
 
-OS X环境安装
+OS X环境下安装
 ^^^^^^^^^^^^^^^^^
 
 We provide binaries for OS X  for each of the supported Python versions
@@ -67,7 +67,7 @@ except OpenJPEG::
 
   $ pip install Pillow
 
-Linux环境安装
+Linux环境下安装
 ^^^^^^^^^^^^^^^^^^
 
 We do not provide binaries for Linux. Most major Linux distributions,
@@ -76,7 +76,7 @@ packages that previously contained PIL e.g. ``python-imaging``. Please
 consider using native operating system packages first to avoid
 installation problems and/or missing library support later.
 
-FreeBSD环境安装
+FreeBSD环境下安装
 ^^^^^^^^^^^^^^^^^^^^
 
 Pillow can be installed on FreeBSD via the official Ports or Packages systems:
@@ -106,7 +106,7 @@ Download and extract the `compressed archive from PyPI`_.
 
 .. _external-libraries:
 
-External Libraries
+扩展
 ^^^^^^^^^^^^^^^^^^
 
 .. note::
@@ -179,7 +179,7 @@ build without cache using the ``--no-cache-dir`` option to force a
 build with newly installed external libraries.
 
 
-Build Options
+编译选项
 ^^^^^^^^^^^^^
 
 * Environment Variable: ``MAX_CONCURRENCY=n``. By default, Pillow will
@@ -221,7 +221,7 @@ or using pip::
     $ pip install pillow --global-option="build_ext" --global-option="--enable-[feature]"
 
 
-Building on OS X
+在 OS X 上编译
 ^^^^^^^^^^^^^^^^
 
 Xcode is required to compile portions of Pillow. Either install the
@@ -242,14 +242,14 @@ or from within the uncompressed source directory::
 
     $ python setup.py install
 
-Building on Windows
+在 Windows 上编译
 ^^^^^^^^^^^^^^^^^^^
 
 We don't recommend trying to build on Windows. It is a maze of twisty
 passages, mostly dead ends. There are build scripts and notes for the
 Windows build in the ``winbuild`` directory.
 
-Building on FreeBSD
+在 FreeBSD 上编译
 ^^^^^^^^^^^^^^^^^^^
 
 .. Note:: Only FreeBSD 10 tested
@@ -267,7 +267,7 @@ Prerequisites are installed on **FreeBSD 10** with::
     $ sudo pkg install jpeg tiff webp lcms2 freetype2
 
 
-Building on Linux
+在 Linux 上编译
 ^^^^^^^^^^^^^^^^^
 
 If you didn't build Python from source, make sure you have Python's
@@ -303,7 +303,7 @@ Prerequisites are installed on **Fedora 23** with::
 
 
 
-Platform Support
+兼容性
 ----------------
 
 Current platform support for Pillow. Binary distributions are contributed for
@@ -361,11 +361,9 @@ current versions of Linux, OS X, and Windows.
 | Windows 8.1 Pro                  |Yes          | 2.6,2.7,3.2,3.3,3.4          | 2.4.0                          |x86,x86-64             |
 +----------------------------------+-------------+------------------------------+--------------------------------+-----------------------+
 
-Old Versions
+旧版本
 ------------
 
-You can download old distributions from `PyPI
-<https://pypi.python.org/pypi/Pillow>`_. Only the latest major
-releases for Python 2.x and 3.x are visible, but all releases are
-available by direct URL access
+你可以在 `PyPI
+<https://pypi.python.org/pypi/Pillow>`_ 下载到旧版本的Pillow. 只有最新的支持 Python 2.x 和 3.x 的版本是可见的, 但是所有的发行版本都可以通过url直接获取到
 e.g. https://pypi.python.org/pypi/Pillow/1.0.
