@@ -1,7 +1,7 @@
 Pillow
 ======
 
-Pillow 是由 `Alex Clark 和他的小伙伴们 <https://github.com/python-pillow/Pillow/graphs/contributors>`_ 从 PIL fork 出的一个分支 . PIL 则是来自Fredrik Lundh 和他的小伙伴们开发的 Python Imaging Library.
+Pillow 是由 `Alex Clark 和他的小伙伴们 <https://github.com/python-pillow/Pillow/graphs/contributors>`_ 从 PIL fork 出的一个分支 . PIL 则是由Fredrik Lundh 和他的小伙伴们开发的 Python Imaging Library.
 
 .. image:: https://zenodo.org/badge/17549/python-pillow/Pillow.svg
    :target: https://zenodo.org/badge/latestdoi/17549/python-pillow/Pillow
