@@ -1,4 +1,4 @@
-Handbook
+手册
 ========
 
 .. toctree::
