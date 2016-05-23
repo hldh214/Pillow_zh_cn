@@ -60,37 +60,31 @@ OS X环境下安装
 Linux环境下安装
 ^^^^^^^^^^^^^^^^^^
 
-We do not provide binaries for Linux. Most major Linux distributions,
-including Fedora, Debian/Ubuntu and ArchLinux include Pillow in
-packages that previously contained PIL e.g. ``python-imaging``. Please
-consider using native operating system packages first to avoid
-installation problems and/or missing library support later.
+我们不为Linux提供二进制文件. 这其中包括绝大多数Linux的衍生版本, 包括Fedora, Debian/Ubuntu 和 ArchLinux 都自带了Pillow库, 比如 ``python-imaging``. 请首先考虑使用系统自带的库, 而不是使用可能出现问题的第三方库.
 
 FreeBSD环境下安装
 ^^^^^^^^^^^^^^^^^^^^
 
-Pillow can be installed on FreeBSD via the official Ports or Packages systems:
+在FreeBSD上可以使用官方Ports或者包管理系统:
 
 **Ports**::
 
   $ cd /usr/ports/graphics/py-pillow && make install clean
 
-**Packages**::
+**包管理系统**::
 
   $ pkg install py27-pillow
 
 .. note::
 
-    The `Pillow FreeBSD port
-    <https://www.freshports.org/graphics/py-pillow/>`_ and packages
-    are tested by the ports team with all supported FreeBSD versions
-    and against Python 2.x and 3.x.
+    `Pillow FreeBSD port
+    <https://www.freshports.org/graphics/py-pillow/>`_ 和扩展包都经过了 ports 团队的测试, 基于所有支持的 FreeBSD 版本, 包括Python 2.x and 3.x.
 
 
 使用源代码编译
 --------------------
 
-Download and extract the `compressed archive from PyPI`_.
+下载并解压 `compressed archive from PyPI`_.
 
 .. _compressed archive from PyPI: https://pypi.python.org/pypi/Pillow
 
@@ -101,16 +95,13 @@ Download and extract the `compressed archive from PyPI`_.
 
 .. note::
 
-    You **do not need to install all supported external libraries** to
-    use Pillow's basic features. **Zlib** and **libjpeg** are required
-    by default.
+    当你只需要Pillow的基本功能时 **不需要安装所有扩展依赖** . **Zlib** 和 **libjpeg** 是默认被引入的.
 
 .. note::
 
-   There are scripts to install the dependencies for some operating
-   systems included in the ``depends`` directory.
+    在 ``depends`` 目录下有为某些操作系统安装依赖的脚本文件.
 
-Many of Pillow's features require external libraries:
+Pillow的许多特性需要扩展库来支持:
 
 * **libjpeg** provides JPEG functionality.
 
