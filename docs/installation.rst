@@ -22,23 +22,18 @@
 
 .. note::
 
-    The following instructions will install Pillow with support for
-    most common image formats. See :ref:`external-libraries` for a
-    full list of external libraries supported.
+    以下教程将会指引你安装支持大多数图片格式的Pillow库, 如需扩展库, 参看这里 :ref:`external-libraries` .
 
 .. note::
 
-   The basic installation works on Windows and OS X using the binaries
-   from PyPI. Other installations require building from source as
-   detailed below.
+    Windows和OS X平台上的普通安装会使用来自PyPI的二进制文件, 如需扩展则需要从源码进行编译.
 
-Install Pillow with :command:`pip`::
+使用 :command:`pip` 来安装Pillow::
 
     $ pip install Pillow
 
-Or use :command:`easy_install` for installing `Python Eggs
-<http://peak.telecommunity.com/DevCenter/PythonEggs>`_ as
-:command:`pip` does not support them::
+或者在 :command:`pip` 无法使用的时候使用 :command:`easy_install` 来安装 `Python Eggs
+<http://peak.telecommunity.com/DevCenter/PythonEggs>`_ ::
 
     $ easy_install Pillow
 
@@ -46,14 +41,11 @@ Or use :command:`easy_install` for installing `Python Eggs
 Windows环境下安装
 ^^^^^^^^^^^^^^^^^^^^
 
-We provide Pillow binaries for Windows compiled for the matrix of
-supported Pythons in both 32 and 64-bit versions in wheel, egg, and
-executable installers. These binaries have all of the optional
-libraries included::
+我们提供了32和64位的wheel, egg和exe安装包来为Windows进行安装, 这些安装包包含了所有的可选扩展库::
 
   $ pip install Pillow
 
-or::
+或::
 
   $ easy_install Pillow
 
@@ -61,9 +53,7 @@ or::
 OS X环境下安装
 ^^^^^^^^^^^^^^^^^
 
-We provide binaries for OS X  for each of the supported Python versions
-in the wheel format. These  include support for all optional libraries
-except OpenJPEG::
+我们提供了二进制文件来为 OS X 上的所有Python版本进行安装, 这些安装包包含了所有的可选扩展库, 除了OpenJPEG::
 
   $ pip install Pillow
 
