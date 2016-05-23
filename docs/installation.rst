@@ -103,25 +103,22 @@ FreeBSD环境下安装
 
 Pillow的许多特性需要扩展库来支持:
 
-* **libjpeg** provides JPEG functionality.
+* **libjpeg** 提供 JPEG 支持.
 
-  * Pillow has been tested with libjpeg versions **6b**, **8**, **9**, and
-    **9a** and libjpeg-turbo version **8**.
-  * Starting with Pillow 3.0.0, libjpeg is required by default, but
-    may be disabled with the ``--disable-jpeg`` flag.
+  * Pillow在 **6b**, **8**, **9**, 和 **9a** 版本的 libjpeg 以及 **8** 版本的 libjpeg-turbo 上测试通过.
+  * 如果使用 Pillow 3.0.0, libjpeg 是默认需要的依赖, 但是可能被 ``--disable-jpeg`` 这个选项禁用了.
 
-* **zlib** provides access to compressed PNGs
+* **zlib** 提供 PNGs 压缩
 
-  * Starting with Pillow 3.0.0, zlib is required by default, but may
-    be disabled with the ``--disable-zlib`` flag.
+  * 如果使用 Pillow 3.0.0, zlib 是默认需要的依赖, 但是可能被 ``--disable-zlib`` 这个选项禁用了.
 
-* **libtiff** provides compressed TIFF functionality
+* **libtiff** 提供 TIFF 压缩
 
-  * Pillow has been tested with libtiff versions **3.x** and **4.0**
+  * Pillow 在 **3.x** and **4.0** 版本的 libtiff 上测试通过.
 
-* **libfreetype** provides type related services
+* **libfreetype** 提供类型相关支持
 
-* **littlecms** provides color management
+* **littlecms** 提供色彩管理支持
 
   * Pillow version 2.2.1 and below uses liblcms1, Pillow 2.3.0 and
     above uses liblcms2. Tested with **1.19** and **2.7**.
