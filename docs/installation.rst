@@ -103,16 +103,16 @@ FreeBSD环境下安装
 
 Pillow的许多特性需要扩展库来支持:
 
-* **libjpeg** 提供 JPEG 支持.
+* **libjpeg** 提供 JPEG 格式支持.
 
   * Pillow在 **6b**, **8**, **9**, 和 **9a** 版本的 libjpeg 以及 **8** 版本的 libjpeg-turbo 上测试通过.
   * 如果使用 Pillow 3.0.0, libjpeg 是默认需要的依赖, 但是可能被 ``--disable-jpeg`` 这个选项禁用了.
 
-* **zlib** 提供 PNGs 压缩
+* **zlib** 提供 PNGs 格式压缩
 
   * 如果使用 Pillow 3.0.0, zlib 是默认需要的依赖, 但是可能被 ``--disable-zlib`` 这个选项禁用了.
 
-* **libtiff** 提供 TIFF 压缩
+* **libtiff** 提供 TIFF 格式压缩
 
   * Pillow 在 **3.x** and **4.0** 版本的 libtiff 上测试通过.
 
@@ -120,41 +120,32 @@ Pillow的许多特性需要扩展库来支持:
 
 * **littlecms** 提供色彩管理支持
 
-  * Pillow version 2.2.1 and below uses liblcms1, Pillow 2.3.0 and
-    above uses liblcms2. Tested with **1.19** and **2.7**.
+  * Pillow 版本在 2.2.1 及以下的使用了 liblcms1, Pillow 版本在 2.3.0 及以上使用了 liblcms2. 在 **1.19** 和 **2.7** 版本下测试通过.
 
-* **libwebp** provides the WebP format.
+* **libwebp** 提供 WebP 格式支持.
 
   * Pillow has been tested with version **0.1.3**, which does not read
     transparent WebP files. Versions **0.3.0** and above support
     transparency.
 
-* **tcl/tk** provides support for tkinter bitmap and photo images.
+* **tcl/tk** 提供 tkinter bitmap 和 photo images支持.
 
-* **openjpeg** provides JPEG 2000 functionality.
+* **openjpeg** 提供 JPEG 2000 支持.
 
   * Pillow has been tested with openjpeg **2.0.0** and **2.1.0**.
   * Pillow does **not** support the earlier **1.5** series which ships
     with Ubuntu and Debian.
 
-Once you have installed the prerequisites, run::
+只要你安装了所需依赖, 执行::
 
     $ pip install Pillow
 
-If the prerequisites are installed in the standard library locations
-for your machine (e.g. :file:`/usr` or :file:`/usr/local`), no
-additional configuration should be required. If they are installed in
-a non-standard location, you may need to configure setuptools to use
-those locations by editing :file:`setup.py` or
-:file:`setup.cfg`, or by adding environment variables on the command
-line::
+如果这些依赖在你的机器上安装好了 (例如. :file:`/usr` 或者 :file:`/usr/local`), 那么在编译的时候不需要加上编译选项. 如果在机器上没有,你则需要编辑 :file:`setup.py` 或者
+:file:`setup.cfg` 来设置编译选项, 或者在命令里面加上环境变量::
 
     $ CFLAGS="-I/usr/pkg/include" pip install pillow
 
-If Pillow has been previously built without the required
-prerequisites, it may be necessary to manually clear the pip cache or
-build without cache using the ``--no-cache-dir`` option to force a
-build with newly installed external libraries.
+如果Pillow在没有添加依赖的情况下安装过, 可能需要先使用 ``--no-cache-dir`` 来清理pip的缓存, 再指定新的依赖进行安装.
 
 
 编译选项
@@ -295,7 +286,7 @@ current versions of Linux, OS X, and Windows.
     document and send a pull request.
 
 +----------------------------------+-------------+------------------------------+--------------------------------+-----------------------+
-|**Operating system**              |**Supported**|**Tested Python versions**    |**Latest tested Pillow version**|**Tested processors**  |
+|**操作系统**              |**是否支持**|**测试用 Python 版本**    |**最新测试的 Pillow 版本**|**测试用架构**  |
 +----------------------------------+-------------+------------------------------+--------------------------------+-----------------------+
 | Mac OS X 10.11 El Capitan        |Yes          | 2.7,3.3,3.4,3.5              | 3.2.0                          |x86-64                 |
 +----------------------------------+-------------+------------------------------+--------------------------------+-----------------------+
