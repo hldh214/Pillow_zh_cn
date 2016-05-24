@@ -4,10 +4,9 @@
 使用 Image 类
 --------------
 
-The most important class in the Python Imaging Library is the
-:py:class:`~PIL.Image.Image` class, defined in the module with the same name.
-You can create instances of this class in several ways; either by loading
-images from files, processing other images, or creating images from scratch.
+在Python中最重要的图像处理库非 :py:class:`~PIL.Image.Image` 莫属,
+以同样的名字定义模块, 你能多样的实例化这个类, 无论是从文件读取图片,
+亦或者是处理其他图片, 或者随心所欲的绘制你所想到的图形.
 
 To load an image from a file, use the :py:func:`~PIL.Image.open` function
 in the :py:mod:`~PIL.Image` module::
