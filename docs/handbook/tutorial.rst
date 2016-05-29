@@ -50,13 +50,12 @@ Python的图像处理库支持绝大多数的图片格式. 直接使用来自 :p
 模块的 :py:func:`~PIL.Image.open` 方法就能从硬盘读取图片文件.
 不需要你来区分不同的图片格式, 这个库会自动匹配对应的解码器来打开图片文件.
 
-To save a file, use the :py:meth:`~PIL.Image.Image.save` method of the
-:py:class:`~PIL.Image.Image` class. When saving files, the name becomes
-important. Unless you specify the format, the library uses the filename
-extension to discover which file storage format to use.
+直接使用来自 :py:mod:`~PIL.Image` 模块的 :py:func:`~PIL.Image.Image.save`
+方法来保存图片文件. 当你保存图片文件的时候, 文件名显得尤为重要.
+除非你指定扩展名, 默认情况下是自动沿袭本地存储格式的.
 
-Convert files to JPEG
-^^^^^^^^^^^^^^^^^^^^^
+把图片的格式转换为 JPEG
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -73,11 +72,10 @@ Convert files to JPEG
             except IOError:
                 print("cannot convert", infile)
 
-A second argument can be supplied to the :py:meth:`~PIL.Image.Image.save`
-method which explicitly specifies a file format. If you use a non-standard
-extension, you must always specify the format this way:
+第二个参数支持 :py:meth:`~PIL.Image.Image.save` 方法来指定图片的扩展名.
+如果使用了非标准的扩展名, 则必须加上第二个参数.
 
-Create JPEG thumbnails
+生成 JPEG 缩略图
 ^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -98,17 +96,14 @@ Create JPEG thumbnails
             except IOError:
                 print("cannot create thumbnail for", infile)
 
-It is important to note that the library doesn’t decode or load the raster data
-unless it really has to. When you open a file, the file header is read to
-determine the file format and extract things like mode, size, and other
-properties required to decode the file, but the rest of the file is not
-processed until later.
+值得注意的是, 库默认情况下是不会解码光栅图片数据除非是必须的.
+当你打开一个文件的时候, 文件的头部将被用来识别文件扩展名和大小等等属性,
+但是剩下的数据不会马上被处理.
 
-This means that opening an image file is a fast operation, which is independent
-of the file size and compression type. Here’s a simple script to quickly
-identify a set of image files:
+这也暗示了打开一个图片其实是一个很快的操作, 只关乎到文件大小和压缩方式.
+以下是一个简单的识别图片文件的小脚本:
 
-Identify Image Files
+识别图片文件
 ^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -124,12 +119,11 @@ Identify Image Files
         except IOError:
             pass
 
-Cutting, pasting, and merging images
+裁剪, 粘贴 和 合成图片
 ------------------------------------
 
-The :py:class:`~PIL.Image.Image` class contains methods allowing you to
-manipulate regions within an image. To extract a sub-rectangle from an image,
-use the :py:meth:`~PIL.Image.Image.crop` method.
+:py:class:`~PIL.Image.Image` 类包含了可以让你操作图片的方法.
+当你想从图片截取一部分的时候, 直接用 :py:meth:`~PIL.Image.Image.crop` 方法.
 
 Copying a subrectangle from an image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
