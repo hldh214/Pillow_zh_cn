@@ -23,33 +23,25 @@
  :py:attr:`~PIL.Image.Image.format` 这个属性代表图片文件的扩展名,
 如果图片文件打开失败, 则其值为None.  :py:attr:`~PIL.Image.Image.size`
 这个属性代表图片的大小, 以像素为单位, 使用包含两个元素的元组来返回.
- :py:attr:`~PIL.Image.Image.mode` 这个属性
+ :py:attr:`~PIL.Image.Image.mode` 这个属性代表图片的band属性,
+一般情况(黑白)下为 "L", 当图片是彩色的时候是 "RGB", 如果图片经过压缩,
+则是 "CMYK".
 
- :py:attr:`~PIL.Image.Image.format` attribute identifies the source of an
-image. If the image was not read from a file, it is set to None. The size
-attribute is a 2-tuple containing width and height (in pixels). The
-:py:attr:`~PIL.Image.Image.mode` attribute defines the number and names of the
-bands in the image, and also the pixel type and depth. Common modes are “L”
-(luminance) for greyscale images, “RGB” for true color images, and “CMYK” for
-pre-press images.
+如果图片文件打开失败, 将会提示 :py:exc:`IOError` 错误.
 
-If the file cannot be opened, an :py:exc:`IOError` exception is raised.
-
-Once you have an instance of the :py:class:`~PIL.Image.Image` class, you can use
-the methods defined by this class to process and manipulate the image. For
-example, let’s display the image we just loaded::
+一旦你实例化了 :py:class:`~PIL.Image.Image` 类, 你就可以使用该类的方法去处理图像.
+例如, 我们直接显示这个刚刚被加载的图像::
 
     >>> im.show()
 
 .. note::
 
-    The standard version of :py:meth:`~PIL.Image.Image.show` is not very
-    efficient, since it saves the image to a temporary file and calls the
-    :command:`xv` utility to display the image. If you don’t have :command:`xv`
-    installed, it won’t even work. When it does work though, it is very handy
-    for debugging and tests.
+    从保存图片到缓存文件到调用 :command:`xv` 命令去显示这个图片,
+    :py:meth:`~PIL.Image.Image.show` 的效率很低. 另外,
+    如果你根本没有安装 :command:`xv` 命令, 这个方法就无法使用.
+    即便可以使用, 在调试的时候也是犹如噩梦一般的存在.
 
-The following sections provide an overview of the different functions provided in this library.
+接下来的几个小结将会向你们介绍这个库的几个不同的方法.
 
 Reading and writing images
 --------------------------
