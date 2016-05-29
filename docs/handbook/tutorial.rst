@@ -8,20 +8,24 @@
 以同样的名字定义模块, 你能多样的实例化这个类, 无论是从文件读取图片,
 亦或者是处理其他图片, 或者随心所欲的绘制你所想到的图形.
 
-To load an image from a file, use the :py:func:`~PIL.Image.open` function
-in the :py:mod:`~PIL.Image` module::
+要想以文件的方式读取图片, 使用来自 :py:mod:`~PIL.Image` 模块的 :py:func:`~PIL.Image.open` 方法 ::
 
     >>> from PIL import Image
     >>> im = Image.open("lena.ppm")
 
-If successful, this function returns an :py:class:`~PIL.Image.Image` object.
-You can now use instance attributes to examine the file contents::
+如果操作成功, 这个方法返回一个 :py:class:`~PIL.Image.Image` 对象.
+之后你就可以使用这个对象的方法去查看图片的属性 ::
 
     >>> from __future__ import print_function
     >>> print(im.format, im.size, im.mode)
     PPM (512, 512) RGB
 
-The :py:attr:`~PIL.Image.Image.format` attribute identifies the source of an
+ :py:attr:`~PIL.Image.Image.format` 这个属性代表图片文件的扩展名,
+如果图片文件打开失败, 则其值为None.  :py:attr:`~PIL.Image.Image.size`
+这个属性代表图片的大小, 以像素为单位, 使用包含两个元素的元组来返回.
+ :py:attr:`~PIL.Image.Image.mode` 这个属性
+
+ :py:attr:`~PIL.Image.Image.format` attribute identifies the source of an
 image. If the image was not read from a file, it is set to None. The size
 attribute is a 2-tuple containing width and height (in pixels). The
 :py:attr:`~PIL.Image.Image.mode` attribute defines the number and names of the
