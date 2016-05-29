@@ -20,10 +20,10 @@
     >>> print(im.format, im.size, im.mode)
     PPM (512, 512) RGB
 
- :py:attr:`~PIL.Image.Image.format` 这个属性代表图片文件的扩展名,
+:py:attr:`~PIL.Image.Image.format` 这个属性代表图片文件的扩展名,
 如果图片文件打开失败, 则其值为None.  :py:attr:`~PIL.Image.Image.size`
 这个属性代表图片的大小, 以像素为单位, 使用包含两个元素的元组来返回.
- :py:attr:`~PIL.Image.Image.mode` 这个属性代表图片的band属性,
+:py:attr:`~PIL.Image.Image.mode` 这个属性代表图片的band属性,
 一般情况(黑白)下为 "L", 当图片是彩色的时候是 "RGB", 如果图片经过压缩,
 则是 "CMYK".
 
@@ -43,14 +43,12 @@
 
 接下来的几个小结将会向你们介绍这个库的几个不同的方法.
 
-Reading and writing images
+图片的读写操作
 --------------------------
 
-The Python Imaging Library supports a wide variety of image file formats. To
-read files from disk, use the :py:func:`~PIL.Image.open` function in the
-:py:mod:`~PIL.Image` module. You don’t have to know the file format to open a
-file. The library automatically determines the format based on the contents of
-the file.
+Python的图像处理库支持绝大多数的图片格式. 直接使用来自 :py:mod:`~PIL.Image`
+模块的 :py:func:`~PIL.Image.open` 方法就能从硬盘读取图片文件.
+不需要你来区分不同的图片格式, 这个库会自动匹配对应的解码器来打开图片文件.
 
 To save a file, use the :py:meth:`~PIL.Image.Image.save` method of the
 :py:class:`~PIL.Image.Image` class. When saving files, the name becomes
