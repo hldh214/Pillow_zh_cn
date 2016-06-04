@@ -175,28 +175,24 @@ Python Imaging Library 使用(0, 0)来表示在左上角的情况.
 
         return image
 
-Note that when pasting it back from the :py:meth:`~PIL.Image.Image.crop`
-operation, :py:meth:`~PIL.Image.Image.load` is called first. This is because
-cropping is a lazy operation. If :py:meth:`~PIL.Image.Image.load` was not
-called, then the crop operation would not be performed until the images were
-used in the paste commands. This would mean that ``part1`` would be cropped from
-the version of ``image`` already modified by the first paste.
+值得注意的是, 当你使用 :py:meth:`~PIL.Image.Image.crop` 方法来修改图像文件的时候,
+:py:meth:`~PIL.Image.Image.load` 方法会首先被调用.
+这是由于修改是一个惰性操作. 如果 :py:meth:`~PIL.Image.Image.load` 未被调用,
+那么在保存修改之前都不会执行修改这个操作.
+这暗示着 ``part1`` 会在首次修改 ``image`` 的时候被修改.
 
-For more advanced tricks, the paste method can also take a transparency mask as
-an optional argument. In this mask, the value 255 indicates that the pasted
-image is opaque in that position (that is, the pasted image should be used as
-is). The value 0 means that the pasted image is completely transparent. Values
-in-between indicate different levels of transparency. For example, pasting an
-RGBA image and also using it as the mask would paste the opaque portion
-of the image but not its transparent background.
+至于更多黑魔法, paste方法也可以传入一个表示透明度的可选参数.
+当你使用了这个黑魔法, 传入255这个值将会使图像变得不透明.
+反之传入0则会使图像完全透明. 传入中间值则会使图片半透明.
+例如, 修改一个 RGBA 图像并且使用透明度参数将会影响他的前景色透明度,
+而并不会影响他的背景色透明度.
 
-The Python Imaging Library also allows you to work with the individual bands of
-an multi-band image, such as an RGB image. The split method creates a set of
-new images, each containing one band from the original multi-band image. The
-merge function takes a mode and a tuple of images, and combines them into a new
-image. The following sample swaps the three bands of an RGB image:
+Python Imaging Library 同样允许你操作多波段的图片, 比如RGB图片.
+split 方法会创建一个图片集合, 每一个表示了这个图片的一个波段.
+merge 方法需要传入一个mode参数和一个图片的元组, 然后融合这个图像.
+以下示例演示了如何分割三波段的 RGB 图片:
 
-Splitting and merging bands
+分割与合并波段
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -204,19 +200,17 @@ Splitting and merging bands
     r, g, b = im.split()
     im = Image.merge("RGB", (b, g, r))
 
-Note that for a single-band image, :py:meth:`~PIL.Image.Image.split` returns
-the image itself. To work with individual color bands, you may want to convert
-the image to “RGB” first.
+值得注意的是单一波段的图片, :py:meth:`~PIL.Image.Image.split` 返回这个图像本身.
+如果需要操作不同波段, 可能需要你先把图片转换成 RGB 格式.
 
-Geometrical transforms
+几何变换
 ----------------------
 
-The :py:class:`PIL.Image.Image` class contains methods to
-:py:meth:`~PIL.Image.Image.resize` and :py:meth:`~PIL.Image.Image.rotate` an
-image. The former takes a tuple giving the new size, the latter the angle in
-degrees counter-clockwise.
+:py:class:`PIL.Image.Image` 类包含了 :py:meth:`~PIL.Image.Image.resize`
+和  :py:meth:`~PIL.Image.Image.rotate` 方法来操作图像.
+前者需要传入一个表示新大小的元组, 而后者则需要传入旋转的角度.
 
-Simple geometry transforms
+简单的几何变换
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -224,12 +218,11 @@ Simple geometry transforms
     out = im.resize((128, 128))
     out = im.rotate(45) # degrees counter-clockwise
 
-To rotate the image in 90 degree steps, you can either use the
-:py:meth:`~PIL.Image.Image.rotate` method or the
-:py:meth:`~PIL.Image.Image.transpose` method. The latter can also be used to
-flip an image around its horizontal or vertical axis.
+要想以90度旋转图片, 你既可以使用 :py:meth:`~PIL.Image.Image.rotate` 方法,
+也可以使用 :py:meth:`~PIL.Image.Image.transpose` 方法.
+后者也能水平或者垂直翻转图像.
 
-Transposing an image
+旋转图像
 ^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -240,46 +233,41 @@ Transposing an image
     out = im.transpose(Image.ROTATE_180)
     out = im.transpose(Image.ROTATE_270)
 
-``transpose(ROTATE)`` operations can also be performed identically with
-:py:meth:`~PIL.Image.Image.rotate` operations, provided the `expand` flag is
-true, to provide for the same changes to the image's size.
+使用 :py:meth:`~PIL.Image.Image.rotate` 也能完成 ``transpose(ROTATE)`` 操作,
+把 `expand` 参数设置为 True 来同时修改图片的尺寸.
 
-A more general form of image transformations can be carried out via the
-:py:meth:`~PIL.Image.Image.transform` method.
+至于修改图片方向的一般方法是使用 :py:meth:`~PIL.Image.Image.transform` 方法.
 
 .. _color-transforms:
 
-Color transforms
+色彩转换
 ----------------
 
-The Python Imaging Library allows you to convert images between different pixel
-representations using the :py:meth:`~PIL.Image.Image.convert` method.
+Python Imaging Library 允许你使用 :py:meth:`~PIL.Image.Image.convert` 方法,
+以像素为单位修改图像.
 
-Converting between modes
+模式转换
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
     im = Image.open("lena.ppm").convert("L")
 
-The library supports transformations between each supported mode and the “L”
-and “RGB” modes. To convert between other modes, you may have to use an
-intermediate image (typically an “RGB” image).
+这个库支持 "L" 模式和 "RGB" 模式的互相转换. 要想转换到其他的模式,
+可能需要使用一个中介模式, 比如 "RGB".
 
-Image enhancement
+图像效果增强
 -----------------
 
-The Python Imaging Library provides a number of methods and modules that can be
-used to enhance images.
+Python Imaging Library 提供了一些用来增强图像效果的方法和模块.
 
-Filters
+滤镜
 ^^^^^^^
 
-The :py:mod:`~PIL.ImageFilter` module contains a number of pre-defined
-enhancement filters that can be used with the
-:py:meth:`~PIL.Image.Image.filter` method.
+:py:mod:`~PIL.ImageFilter` 模块内置一个预定义的图像效果增强的滤镜,
+可用 :py:meth:`~PIL.Image.Image.filter` 方法来实现效果增强.
 
-Applying filters
+使用滤镜
 ~~~~~~~~~~~~~~~~
 
 ::
@@ -287,15 +275,14 @@ Applying filters
     from PIL import ImageFilter
     out = im.filter(ImageFilter.DETAIL)
 
-Point Operations
+浮点运算
 ^^^^^^^^^^^^^^^^
 
-The :py:meth:`~PIL.Image.Image.point` method can be used to translate the pixel
-values of an image (e.g. image contrast manipulation). In most cases, a
-function object expecting one argument can be passed to this method. Each
-pixel is processed according to that function:
+:py:meth:`~PIL.Image.Image.point` 方法用来转换图片的像素值, 例如图像的对比度.
+绝大多数情况下, 一个函数对象需要一个参数传入这个方法.
+每一个像素将会被这个函数处理:
 
-Applying point transforms
+使用浮点运算
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
@@ -303,11 +290,11 @@ Applying point transforms
     # multiply each pixel by 1.2
     out = im.point(lambda i: i * 1.2)
 
-Using the above technique, you can quickly apply any simple expression to an
-image. You can also combine the :py:meth:`~PIL.Image.Image.point` and
-:py:meth:`~PIL.Image.Image.paste` methods to selectively modify an image:
+运行上述代码, 就能轻松处理一个图像.
+另外你也可以结合 :py:meth:`~PIL.Image.Image.point` 方法和
+:py:meth:`~PIL.Image.Image.paste` 方法来有的放矢的修改图像:
 
-Processing individual bands
+处理不同波段
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
@@ -329,25 +316,23 @@ Processing individual bands
     # build a new multiband image
     im = Image.merge(im.mode, source)
 
-Note the syntax used to create the mask::
+请注意这里的语法::
 
     imout = im.point(lambda i: expression and 255)
 
-Python only evaluates the portion of a logical expression as is necessary to
-determine the outcome, and returns the last value examined as the result of the
-expression. So if the expression above is false (0), Python does not look at
-the second operand, and thus returns 0. Otherwise, it returns 255.
+Python 只会计算结果所需的逻辑表达式, 并返回最后一个表达式的计算结果.
+所以, 如果存在某个表达式返回了 false 也就是0, Python 不会进行后续的计算并且返回0,
+反之则返回255.
 
-Enhancement
+效果增强
 ^^^^^^^^^^^
 
-For more advanced image enhancement, you can use the classes in the
-:py:mod:`~PIL.ImageEnhance` module. Once created from an image, an enhancement
-object can be used to quickly try out different settings.
+更多图像增强效果, 都能在 :py:mod:`~PIL.ImageEnhance` 模块中找到.
+一旦你实例化了一个图像, 效果增强对象就可以直接调用了.
 
-You can adjust contrast, brightness, color balance and sharpness in this way.
+你可以像这样修改对比度, 亮度, 色彩平衡度和锐度.
 
-Enhancing images
+效果增强
 ~~~~~~~~~~~~~~~~
 
 ::
