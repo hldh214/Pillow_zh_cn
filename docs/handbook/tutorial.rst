@@ -125,7 +125,7 @@ Python的图像处理库支持绝大多数的图片格式. 直接使用来自 :p
 :py:class:`~PIL.Image.Image` 类包含了可以让你操作图片的方法.
 当你想从图片截取一部分的时候, 直接用 :py:meth:`~PIL.Image.Image.crop` 方法.
 
-Copying a subrectangle from an image
+从图像中拷贝出子矩形
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -133,14 +133,13 @@ Copying a subrectangle from an image
     box = (100, 100, 400, 400)
     region = im.crop(box)
 
-The region is defined by a 4-tuple, where coordinates are (left, upper, right,
-lower). The Python Imaging Library uses a coordinate system with (0, 0) in the
-upper left corner. Also note that coordinates refer to positions between the
-pixels, so the region in the above example is exactly 300x300 pixels.
+这个图像区域由含有4个元素的元组组成, 这四个元素分别代表 (左, 上, 右, 下).
+Python Imaging Library 使用(0, 0)来表示在左上角的情况.
+另外值得注意的是, 这些坐标的单位是像素(px), 所以上面的例子实际上表示了 300x300 像素.
 
-The region could now be processed in a certain manner and pasted back.
+这个图像区域现在可以在某些情况下进行处理.
 
-Processing a subrectangle, and pasting it back
+在原图像中处理子矩形
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -148,15 +147,13 @@ Processing a subrectangle, and pasting it back
     region = region.transpose(Image.ROTATE_180)
     im.paste(region, box)
 
-When pasting regions back, the size of the region must match the given region
-exactly. In addition, the region cannot extend outside the image. However, the
-modes of the original image and the region do not need to match. If they don’t,
-the region is automatically converted before being pasted (see the section on
-:ref:`color-transforms` below for details).
+当你修改原图像的时候, 图像区域的大小必须和原图像保持一致.
+另外, 图像区域不能扩充到图像便捷之外. 尽管如此, 原图像和目标图像的模式不必保持一致.
+如果不一致, 目标图像会在保存的时候自动进行转换, 详见 :ref:`color-transforms` .
 
-Here’s an additional example:
+接下来是扩展实例:
 
-Rolling an image
+翻转图像
 ^^^^^^^^^^^^^^^^
 
 ::
