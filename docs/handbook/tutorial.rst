@@ -6,7 +6,7 @@
 
 在Python中最重要的图像处理库非 :py:class:`~PIL.Image.Image` 莫属,
 以同样的名字定义模块, 你能多样的实例化这个类, 无论是从文件读取图片,
-亦或者是处理其他图片, 或者随心所欲的绘制你所想到的图形.
+亦或者是处理其它图片, 或者随心所欲的绘制你所想到的图形.
 
 要想以文件的方式读取图片, 使用来自 :py:mod:`~PIL.Image` 模块的 :py:func:`~PIL.Image.open` 方法 ::
 
@@ -184,8 +184,8 @@ Python Imaging Library 使用(0, 0)来表示在左上角的情况.
 至于更多黑魔法, paste方法也可以传入一个表示透明度的可选参数.
 当你使用了这个黑魔法, 传入255这个值将会使图像变得不透明.
 反之传入0则会使图像完全透明. 传入中间值则会使图片半透明.
-例如, 修改一个 RGBA 图像并且使用透明度参数将会影响他的前景色透明度,
-而并不会影响他的背景色透明度.
+例如, 修改一个 RGBA 图像并且使用透明度参数将会影响它的前景色透明度,
+而并不会影响它的背景色透明度.
 
 Python Imaging Library 同样允许你操作多波段的图片, 比如RGB图片.
 split 方法会创建一个图片集合, 每一个表示了这个图片的一个波段.
@@ -253,7 +253,7 @@ Python Imaging Library 允许你使用 :py:meth:`~PIL.Image.Image.convert` 方�
 
     im = Image.open("lena.ppm").convert("L")
 
-这个库支持 "L" 模式和 "RGB" 模式的互相转换. 要想转换到其他的模式,
+这个库支持 "L" 模式和 "RGB" 模式的互相转换. 要想转换到其它的模式,
 可能需要使用一个中介模式, 比如 "RGB".
 
 图像效果增强
@@ -342,19 +342,16 @@ Python 只会计算结果所需的逻辑表达式, 并返回最后一个表达�
     enh = ImageEnhance.Contrast(im)
     enh.enhance(1.3).show("30% more contrast")
 
-Image sequences
+图像阵列
 ---------------
 
-The Python Imaging Library contains some basic support for image sequences
-(also called animation formats). Supported sequence formats include FLI/FLC,
-GIF, and a few experimental formats. TIFF files can also contain more than one
-frame.
+Python Imaging Library 支持一些对基本图像阵列. 其中包括 FLI/FLC, GIF,
+和其它的一些格式. TIFF 文件则包含了多个帧.
 
-When you open a sequence file, PIL automatically loads the first frame in the
-sequence. You can use the seek and tell methods to move between different
-frames:
+当你试图打开一个图像阵列图片, PIL 会自动的加载这个阵列的首帧.
+你可以使用一些方法来切换不同的帧:
 
-Reading sequences
+读取阵列
 ^^^^^^^^^^^^^^^^^
 
 ::
@@ -371,16 +368,13 @@ Reading sequences
     except EOFError:
         pass # end of sequence
 
-As seen in this example, you’ll get an :py:exc:`EOFError` exception when the
-sequence ends.
+如你所见, 在帧尾时会得到一个 :py:exc:`EOFError` 异常.
 
-Note that most drivers in the current version of the library only allow you to
-seek to the next frame (as in the above example). To rewind the file, you may
-have to reopen it.
+值得注意的是, 目前版本的库仅仅支持你顺序加载帧. 如果你想回头的话, 只能重新加载图像文件.
 
-The following class lets you use the for-statement to loop over the sequence:
+下列类允许你使用 for 语句来迭代这个序列:
 
-Using the ImageSequence Iterator class
+使用图像序列迭代器
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -390,13 +384,12 @@ Using the ImageSequence Iterator class
         # ...do something to frame...
 
 
-Postscript printing
+Postscript 打印
 -------------------
 
-The Python Imaging Library includes functions to print images, text and
-graphics on Postscript printers. Here’s a simple example:
+Python Imaging Library 包含了一些用于输出图像的函数, 文字和在 Postscript 上的图像. 见下例:
 
-Drawing Postscript
+绘制 Postscript
 ^^^^^^^^^^^^^^^^^^
 
 ::
@@ -421,23 +414,21 @@ Drawing Postscript
 
     ps.end_document()
 
-More on reading images
+更多关于读取图片
 ----------------------
 
-As described earlier, the :py:func:`~PIL.Image.open` function of the
-:py:mod:`~PIL.Image` module is used to open an image file. In most cases, you
-simply pass it the filename as an argument::
+在上文中, :py:mod:`~PIL.Image` 模块里的 :py:func:`~PIL.Image.open` 函数用于打开图片文件.
+但是在大多数情况中, 你可以优雅的打开它, 像这样::
 
     im = Image.open("lena.ppm")
 
-If everything goes well, the result is an :py:class:`PIL.Image.Image` object.
-Otherwise, an :exc:`IOError` exception is raised.
+如果没有报错, 返回值是 :py:class:`PIL.Image.Image` 对象.
+反之则会抛出一个 :exc:`IOError` 异常.
 
-You can use a file-like object instead of the filename. The object must
-implement :py:meth:`~file.read`, :py:meth:`~file.seek` and
-:py:meth:`~file.tell` methods, and be opened in binary mode.
+你可以使用文件对象来代替文件名. 这个对象必须以 :py:meth:`~file.read`,
+ :py:meth:`~file.seek` 和 :py:meth:`~file.tell` 方法, 并且以二进制方式打开.
 
-Reading from an open file
+从打开的文件中读取图片
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -445,10 +436,9 @@ Reading from an open file
     fp = open("lena.ppm", "rb")
     im = Image.open(fp)
 
-To read an image from string data, use the :py:class:`~StringIO.StringIO`
-class:
+要想从字符串中读取文件, 使用 :py:class:`~StringIO.StringIO` 类来实现:
 
-Reading from a string
+从字符串中读取图片
 ^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -457,13 +447,11 @@ Reading from a string
 
     im = Image.open(StringIO.StringIO(buffer))
 
-Note that the library rewinds the file (using ``seek(0)``) before reading the
-image header. In addition, seek will also be used when the image data is read
-(by the load method). If the image file is embedded in a larger file, such as a
-tar file, you can use the :py:class:`~PIL.ContainerIO` or
-:py:class:`~PIL.TarIO` modules to access it.
+请注意, 使用库的时候会重置指针到文件开头. 另外, 在读取图片的时候也要用到文件指针.
+如果图片文件被嵌入到了一个大文件, 例如 tar 文件, 你可以使用 :py:class:`~PIL.ContainerIO`
+或者 :py:class:`~PIL.TarIO` 模块来处理它.
 
-Reading from a tar archive
+从tar文件中读取
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -473,19 +461,16 @@ Reading from a tar archive
     fp = TarIO.TarIO("Imaging.tar", "Imaging/test/lena.ppm")
     im = Image.open(fp)
 
-Controlling the decoder
+控制解码器
 -----------------------
 
-Some decoders allow you to manipulate the image while reading it from a file.
-This can often be used to speed up decoding when creating thumbnails (when
-speed is usually more important than quality) and printing to a monochrome
-laser printer (when only a greyscale version of the image is needed).
+一些解码器允许你在读取文件的时候操作图片. 这个在创建缩略图的时候相当有用,
+可以成倍的加快读取速度.
 
-The :py:meth:`~PIL.Image.Image.draft` method manipulates an opened but not yet
-loaded image so it as closely as possible matches the given mode and size. This
-is done by reconfiguring the image decoder.
+:py:meth:`~PIL.Image.Image.draft` 方法可以操作一个仅打开但是未加载的图片.
+只需要你重新配置图片解码器即可完成.
 
-Reading in draft mode
+使用模拟模式
 ^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -497,11 +482,10 @@ Reading in draft mode
     im.draft("L", (100, 100))
     print("draft =", im.mode, im.size)
 
-This prints something like::
+这将输出如下结果::
 
     original = RGB (512, 512)
     draft = L (128, 128)
 
-Note that the resulting image may not exactly match the requested mode and
-size. To make sure that the image is not larger than the given size, use the
-thumbnail method instead.
+值得注意的是, 结果图像可能不满足要求模式和大小. 要想确保图像和给定大小没有出入,
+使用缩略图方法替代之.
