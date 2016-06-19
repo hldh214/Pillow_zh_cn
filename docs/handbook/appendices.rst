@@ -1,4 +1,4 @@
-Appendices
+附录
 ==========
 
 .. note:: Contributors please include appendices as needed or appropriate with your bug fixes, feature additions and tests.

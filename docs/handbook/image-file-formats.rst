@@ -1,49 +1,41 @@
 .. _image-file-formats:
 
-Image file formats
+图片文件格式
 ==================
 
-The Python Imaging Library supports a wide variety of raster file formats.
-Over 30 different file formats can be identified and read by the library.
-Write support is less extensive, but most common interchange and presentation
-formats are supported.
+Python Imaging Library 支持绝大多数的图片格式. 囊括了30多种.
+虽然对写的支持稍微少了一些, 但是大部分的交换格式都是支持的.
 
-The :py:meth:`~PIL.Image.Image.open` function identifies files from their
-contents, not their names, but the :py:meth:`~PIL.Image.Image.save` method
-looks at the name to determine which format to use, unless the format is given
-explicitly.
+:py:meth:`~PIL.Image.Image.open` 方法使用文件内容来区分不同的文件,
+除非你指定格式, 否则 :py:meth:`~PIL.Image.Image.save` 方法使用文件名来识别所需格式.
 
-Fully supported formats
+
+完全支持的格式
 -----------------------
 
 BMP
 ^^^
 
-PIL reads and writes Windows and OS/2 BMP files containing ``1``, ``L``, ``P``,
-or ``RGB`` data. 16-colour images are read as ``P`` images. Run-length encoding
-is not supported.
+PIL 在 Windows 和 OS/2 平台上读取 BMP 文件的 ``1``, ``L``, ``P``,
+或 ``RGB`` 数据. 而16色图片则读取 ``P`` 数据, 而不支持游程编码.
 
-The :py:meth:`~PIL.Image.Image.open` method sets the following
-:py:attr:`~PIL.Image.Image.info` properties:
+:py:meth:`~PIL.Image.Image.open` 方法用于设置 :py:attr:`~PIL.Image.Image.info` 的属性:
 
-**compression**
-    Set to ``bmp_rle`` if the file is run-length encoded.
+**压缩**
+    如果文件使用游程编码, 请设置 ``bmp_rle`` .
 
 EPS
 ^^^
 
-PIL identifies EPS files containing image data, and can read files that contain
-embedded raster images (ImageData descriptors). If Ghostscript is available,
-other EPS files can be read as well. The EPS driver can also write EPS images.
+PIL 使用图片内容来区分 EPS 文件, 另外还可以读取嵌入的图片.
+如果 Ghostscript 可用, 其他的 EPS 文件将会被正常读取. EPS 驱动也可以用于写入 EPS 图像.
 
-If Ghostscript is available, you can call the :py:meth:`~PIL.Image.Image.load`
-method with the following parameter to affect how Ghostscript renders the EPS
+如果 Ghostscript 可用, 你可以调用 :py:meth:`~PIL.Image.Image.load` 方法
+来渲染 EPS 文件.
 
-**scale**
-    Affects the scale of the resultant rasterized image. If the EPS suggests
-    that the image be rendered at 100px x 100px, setting this parameter to
-    2 will make the Ghostscript render a 200px x 200px image instead. The
-    relative position of the bounding box is maintained::
+**计算**
+    影响栅格图像的计算结果. 如果 EPS 建议以 100px x 100px 来渲染的话,
+    传入两个参数将会以 200px x 200px 来渲染之. 而图片的相对位置保持不变::
 
         im = Image.open(...)
         im.size #(100,100)
@@ -52,6 +44,7 @@ method with the following parameter to affect how Ghostscript renders the EPS
 
 GIF
 ^^^
+
 
 PIL reads GIF87a and GIF89a versions of the GIF file format. The library writes
 run-length encoded files in GIF87a by default, unless GIF89a features
@@ -923,3 +916,4 @@ write support to your application, use
     WmfImagePlugin.register_handler(wmf_handler)
 
     im = Image.open("sample.wmf")
+
