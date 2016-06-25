@@ -45,65 +45,53 @@ PIL 使用图片内容来区分 EPS 文件, 另外还可以读取嵌入的图片
 GIF
 ^^^
 
+PIL会读取 GIF87a 和 GIF89a 标准的 GIF 文件. 默认使用 GIF87a 标准的游程编码,
+除非用到了 GIF89a 的特性.
 
-PIL reads GIF87a and GIF89a versions of the GIF file format. The library writes
-run-length encoded files in GIF87a by default, unless GIF89a features
-are used or GIF89a is already in use.
+值得注意的是, GIF 文件总是以 grayscale (``L``) 或者 palette (``P``) 模式读取.
 
-Note that GIF files are always read as grayscale (``L``)
-or palette mode (``P``) images.
-
-The :py:meth:`~PIL.Image.Image.open` method sets the following
-:py:attr:`~PIL.Image.Image.info` properties:
+:py:meth:`~PIL.Image.Image.open` 方法设置了 :py:attr:`~PIL.Image.Image.info` 的这几个属性:
 
 **background**
-    Default background color (a palette color index).
+    默认背景色 (调色板颜色).
 
 **duration**
-    Time between frames in an animation (in milliseconds).
+    两个帧之间的时间间隔 (毫秒计).
 
 **transparency**
-    Transparency color index. This key is omitted if the image is not
-    transparent.
+    透明度. 当图像不是透明的时候, 这个属性会被忽略.
 
 **version**
-    Version (either ``GIF87a`` or ``GIF89a``).
+    标准 (``GIF87a`` 或 ``GIF89a``).
 
 **duration**
-    May not be present. The time to display each frame of the GIF, in
-    milliseconds.
+    用于显示 GIF 图像的每一帧, 以毫秒计.(可能被忽略)
 
 **loop**
-    May not be present. The number of times the GIF should loop.
+    GIF 文件的循环次数(可能被忽略).
 
-Reading sequences
+读取序列
 ~~~~~~~~~~~~~~~~~
 
-The GIF loader supports the :py:meth:`~file.seek` and :py:meth:`~file.tell`
-methods. You can seek to the next frame (``im.seek(im.tell() + 1)``), or rewind
-the file by seeking to the first frame. Random access is not supported.
+GIF 加载器支持 :py:meth:`~file.seek` 和 :py:meth:`~file.tell` 方法.
+你可以转到下一帧 (``im.seek(im.tell() + 1)``), 或者回溯到首帧. 而不支持随机访问.
 
-``im.seek()`` raises an ``EOFError`` if you try to seek after the last frame.
+当你尝试在最后一帧继续使用 ``im.seek()`` 转到下一帧的时候, 将会抛出 ``EOFError`` 异常.
 
-Saving sequences
+保存序列
 ~~~~~~~~~~~~~~~~
 
-When calling :py:meth:`~PIL.Image.Image.save`, if a multiframe image is used,
-by default only the first frame will be saved. To save all frames, the
-``save_all`` parameter must be present and set to ``True``.
+当你调用:py:meth:`~PIL.Image.Image.save`, 如果使用了一个多帧的图像, 默认只保存首帧.
+要想保存所有帧, ``save_all`` 参数必须设置为 ``True``.
 
-If present, the ``loop`` parameter can be used to set the number of times
-the GIF should loop, and the ``duration`` parameter can set the number of
-milliseconds between each frame.
+在允许条件下, ``loop`` 参数可以设置 GIF 图像的循环次数, ``duration`` 参数则设置了每一帧之间的时间间隔.
 
-Reading local images
+从本地读取图像文件
 ~~~~~~~~~~~~~~~~~~~~
 
-The GIF loader creates an image memory the same size as the GIF file’s *logical
-screen size*, and pastes the actual pixel data (the *local image*) into this
-image. If you only want the actual pixel rectangle, you can manipulate the
-:py:attr:`~PIL.Image.Image.size` and :py:attr:`~PIL.Image.Image.tile`
-attributes before loading the file::
+GIF 加载器会分配和GIF文件大小相同的内存空间, 并且加载这些数据进内存.
+若你仅仅需要实际的像素, 你可以修改 :py:attr:`~PIL.Image.Image.size` 和 :py:attr:`~PIL.Image.Image.tile`
+属性之后再加载图像文件::
 
     im = Image.open(...)
 
@@ -116,123 +104,106 @@ attributes before loading the file::
 ICNS
 ^^^^
 
-PIL reads and (OS X only) writes Mac OS X ``.icns`` files.  By default, the
-largest available icon is read, though you can override this by setting the
-:py:attr:`~PIL.Image.Image.size` property before calling
-:py:meth:`~PIL.Image.Image.load`.  The :py:meth:`~PIL.Image.Image.open` method
-sets the following :py:attr:`~PIL.Image.Image.info` property:
+PIL 仅能在 OS X 下读写 ``.icns`` 文件. 默认情况下, 尽最大可能读取, 不过你也可以修改
+:py:attr:`~PIL.Image.Image.size` 属性之后再读取. :py:meth:`~PIL.Image.Image.open`
+方法设置了 :py:attr:`~PIL.Image.Image.info` 的如下属性:
 
 **sizes**
-    A list of supported sizes found in this icon file; these are a
-    3-tuple, ``(width, height, scale)``, where ``scale`` is 2 for a retina
-    icon and 1 for a standard icon.  You *are* permitted to use this 3-tuple
-    format for the :py:attr:`~PIL.Image.Image.size` property if you set it
-    before calling :py:meth:`~PIL.Image.Image.load`; after loading, the size
-    will be reset to a 2-tuple containing pixel dimensions (so, e.g. if you
-    ask for ``(512, 512, 2)``, the final value of
-    :py:attr:`~PIL.Image.Image.size` will be ``(1024, 1024)``).
+    支持的尺寸列表; 由3元素的元组组成, ``(width, height, scale)``, 其中,
+    ``scale`` 表示了2个 retina 尺寸和1个标准尺寸. 你 *可以* 设置 :py:attr:`~PIL.Image.Image.size`
+    属性之后再调用 :py:meth:`~PIL.Image.Image.load` 方法; 在加载完毕之后,
+    尺寸会重置为一个2个元组组成的像素数据. 比如你传入 ``(512, 512, 2)``,
+    返回的将会是 ``(1024, 1024)``).
 
 IM
 ^^
 
-IM is a format used by LabEye and other applications based on the IFUNC image
-processing library. The library reads and writes most uncompressed interchange
-versions of this format.
+IM 被用于 LabEye 和其他的一些基于 IFUNC 图像处理库的应用. 可以读写大多数未经压缩的图像格式.
 
-IM is the only format that can store all internal PIL formats.
+IM 是唯一的一个可以存储 PIL 内部格式的格式(好绕口~~~).
 
 JPEG
 ^^^^
 
-PIL reads JPEG, JFIF, and Adobe JPEG files containing ``L``, ``RGB``, or
-``CMYK`` data. It writes standard and progressive JFIF files.
+PIL 能读取 JPEG, JFIF, 和包含了 ``L``, ``RGB``, 或 ``CMYK`` 的 Adobe JPEG 数据.
+他能写入标准和激进的 JFIF 文件.
 
-Using the :py:meth:`~PIL.Image.Image.draft` method, you can speed things up by
-converting ``RGB`` images to ``L``, and resize images to 1/2, 1/4 or 1/8 of
-their original size while loading them.
+使用 :py:meth:`~PIL.Image.Image.draft` 方法, 可以加速转换 ``RGB`` 到 ``L``,
+并且可以在加载的时候放缩到原来尺寸的 1/2, 1/4 或者 1/8.
 
-The :py:meth:`~PIL.Image.Image.open` method may set the following
-:py:attr:`~PIL.Image.Image.info` properties if available:
+:py:meth:`~PIL.Image.Image.open` 方法用于设置 :py:attr:`~PIL.Image.Image.info` 属性的以下内容:
 
 **jfif**
-    JFIF application marker found. If the file is not a JFIF file, this key is
-    not present.
+    JFIF 应用标记, 如果不是一个 JFIF 文件, 则忽略.
 
 **jfif_version**
-    A tuple representing the jfif version, (major version, minor version).
+    表示 JFIF 版本的元组, (主版本, 副版本).
 
 **jfif_density**
-    A tuple representing the pixel density of the image, in units specified
-    by jfif_unit.
+    表示图像的密度的元组, 以 jfif_unit 的方式表示.
 
 **jfif_unit**
-    Units for the jfif_density:
+    jfif_density 的单位:
 
-    * 0 - No Units
-    * 1 - Pixels per Inch
-    * 2 - Pixels per Centimeter
+    * 0 - 没有单位
+    * 1 - 像素每英尺
+    * 2 - 像素每厘米
 
 **dpi**
-    A tuple representing the reported pixel density in pixels per inch, if
-    the file is a jfif file and the units are in inches.
+    表示 dpi 的元组, 如果是 JFIF 文件则单位是英尺.
 
 **adobe**
-    Adobe application marker found. If the file is not an Adobe JPEG file, this
-    key is not present.
+    Adobe 文件标记. 如果不是一个 Adobe 文件, 则忽略.
 
 **adobe_transform**
-    Vendor Specific Tag.
+    厂商定义标签.
 
 **progression**
-    Indicates that this is a progressive JPEG file.
+    标志着这是一个激进类型的 JPEG 文件.
 
 **icc_profile**
-    The ICC color profile for the image.
+    图像的 ICC 颜色属性.
 
 **exif**
-    Raw EXIF data from the image.
+    图像的原始 EXIF 数据.
 
 
-The :py:meth:`~PIL.Image.Image.save` method supports the following options:
+:py:meth:`~PIL.Image.Image.save` 方法支持以下参数:
 
 **quality**
-    The image quality, on a scale from 1 (worst) to 95 (best). The default is
-    75. Values above 95 should be avoided; 100 disables portions of the JPEG
-    compression algorithm, and results in large files with hardly any gain in
-    image quality.
+    图像的质量, 从1(最差)到95(最好). 默认是75. 应该避免赋95以上的值;
+    100禁用了 JPEG 部分压缩算法, 将会导致大文件图像质量降低.
 
 **optimize**
-    If present, indicates that the encoder should make an extra pass over the
-    image in order to select optimal encoder settings.
+    如果提供了这个参数, 表示了编码器应该加载额外的编码器来进行相应操作.
 
 **progressive**
-    If present, indicates that this image should be stored as a progressive
-    JPEG file.
+    如果提供了这个参数, 表示这个图像将会以激进模式存储.
 
 **dpi**
-    A tuple of integers representing the pixel density, ``(x,y)``.
+    表示 DPI 的元组, ``(x,y)``.
 
 **icc_profile**
-    If present, the image is stored with the provided ICC profile. If
-    this parameter is not provided, the image will be saved with no
-    profile attached. To preserve the existing profile::
+    如果提供了这个参数, 图像将会以提供的 ICC profile 存储.
+    如果这个参数没有定义, 则图像不会包含任何 profile, 看这个例子::
 
         im.save(filename, 'jpeg', icc_profile=im.info.get('icc_profile'))
 
 **exif**
-    If present, the image will be stored with the provided raw EXIF data.
+    如果提供了这个参数, 图像将会以提供的 EXIF 信息存储.
 
 **subsampling**
-    If present, sets the subsampling for the encoder.
+    如果提供了这个参数, 将会为解码器设置子采样.
 
-    * ``keep``: Only valid for JPEG files, will retain the original image setting.
-    * ``4:4:4``, ``4:2:2``, ``4:1:1``: Specific sampling values
-    * ``-1``: equivalent to ``keep``
-    * ``0``: equivalent to ``4:4:4``
-    * ``1``: equivalent to ``4:2:2``
-    * ``2``: equivalent to ``4:1:1``
+    * ``keep``: 只针对 JPEG 文件, 将会保持原文件属性.
+    * ``4:4:4``, ``4:2:2``, ``4:1:1``: 指定的数据
+    * ``-1``: 等同于 ``keep``
+    * ``0``: 等同于 ``4:4:4``
+    * ``1``: 等同于 ``4:2:2``
+    * ``2``: 等同于 ``4:1:1``
 
 **qtables**
+
     If present, sets the qtables for the encoder. This is listed as an
     advanced option for wizards in the JPEG documentation. Use with
     caution. ``qtables`` can be one of several types of values:
