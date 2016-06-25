@@ -203,123 +203,88 @@ PIL 能读取 JPEG, JFIF, 和包含了 ``L``, ``RGB``, 或 ``CMYK`` 的 Adobe JP
     * ``2``: 等同于 ``4:1:1``
 
 **qtables**
+    如果提供了这个参数, 将会设置编码器为 qtables. 这是罗列在 JPEG 文档中的高级选项.
+    请谨慎使用. ``qtables`` 可以设置如下几个值:
 
-    If present, sets the qtables for the encoder. This is listed as an
-    advanced option for wizards in the JPEG documentation. Use with
-    caution. ``qtables`` can be one of several types of values:
-
-    *  a string, naming a preset, e.g. ``keep``, ``web_low``, or ``web_high``
-    *  a list, tuple, or dictionary (with integer keys =
-       range(len(keys))) of lists of 64 integers. There must be
-       between 2 and 4 tables.
+    *  预设的字符串名称, 例如 ``keep``, ``web_low``, 或 ``web_high``
+    *  一个列表, 元组或者字典.
 
     .. versionadded:: 2.5.0
 
 
 .. note::
 
-    To enable JPEG support, you need to build and install the IJG JPEG library
-    before building the Python Imaging Library. See the distribution README for
-    details.
+    要想添加 JPEG 支持, 你需要编译安装 IJG JPEG 库之后才能编译 PIL. 详见 distribution README.
 
 JPEG 2000
 ^^^^^^^^^
 
 .. versionadded:: 2.4.0
 
-PIL reads and writes JPEG 2000 files containing ``L``, ``LA``, ``RGB`` or
-``RGBA`` data.  It can also read files containing ``YCbCr`` data, which it
-converts on read into ``RGB`` or ``RGBA`` depending on whether or not there is
-an alpha channel.  PIL supports JPEG 2000 raw codestreams (``.j2k`` files), as
-well as boxed JPEG 2000 files (``.j2p`` or ``.jpx`` files).  PIL does *not*
-support files whose components have different sampling frequencies.
+PIL 可以读写包含了 ``L``, ``LA``, ``RGB`` 或 ``RGBA`` 数据的 JPEG 2000 文件.
+同时也可以读取 ``YCbCr`` 数据, 并且会因为是否有 alpha 频段转换 ``RGB`` 或 ``RGBA``.
+PIL 支持原生 JPEG 2000 (``.j2k`` files), 也就是 (``.j2p`` or ``.jpx`` 文件).
+PIL *不能* 支持包含不同样本频段的文件.
 
-When loading, if you set the ``mode`` on the image prior to the
-:py:meth:`~PIL.Image.Image.load` method being invoked, you can ask PIL to
-convert the image to either ``RGB`` or ``RGBA`` rather than choosing for
-itself.  It is also possible to set ``reduce`` to the number of resolutions to
-discard (each one reduces the size of the resulting image by a factor of 2),
-and ``layers`` to specify the number of quality layers to load.
+在加载的时候, 如果设置了 :py:meth:`~PIL.Image.Image.load` 方法的 ``mode`` 属性,
+你可以干预 PIL 选择转换成 ``RGB`` 或者 ``RGBA``. 同时也可以设置 ``reduce`` 属性
+来忽略一些东西, ``layers`` 属性指定了加载的质量.
 
-The :py:meth:`~PIL.Image.Image.save` method supports the following options:
+:py:meth:`~PIL.Image.Image.save` 方法支持以下选项:
 
 **offset**
-    The image offset, as a tuple of integers, e.g. (16, 16)
+    图像的起始位置, 以元组表示, 例如 (16, 16)
 
 **tile_offset**
-    The tile offset, again as a 2-tuple of integers.
+    材质起始位置, 以2个元素的元组表示.
 
 **tile_size**
-    The tile size as a 2-tuple.  If not specified, or if set to None, the
-    image will be saved without tiling.
+    材质大小以2元素元组表示. 如果没有指定, 亦或者设置为 None, 则不包含材质来保存图片.
 
 **quality_mode**
-    Either `"rates"` or `"dB"` depending on the units you want to use to
-    specify image quality.
+    `"rates"` 和 `"dB"` 都取决于你定义的图像的质量.
 
 **quality_layers**
-    A sequence of numbers, each of which represents either an approximate size
-    reduction (if quality mode is `"rates"`) or a signal to noise ratio value
-    in decibels.  If not specified, defaults to a single layer of full quality.
+    一个数字序列, 其值为噪点的近似值. 如果未指定, 默认为原始的质量.
 
 **num_resolutions**
-    The number of different image resolutions to be stored (which corresponds
-    to the number of Discrete Wavelet Transform decompositions plus one).
+    图像存储的分辨率的数量.
 
 **codeblock_size**
-    The code-block size as a 2-tuple.  Minimum size is 4 x 4, maximum is 1024 x
-    1024, with the additional restriction that no code-block may have more
-    than 4096 coefficients (i.e. the product of the two numbers must be no
-    greater than 4096).
+    这是一个2元组, 最小大小为 4 x 4, 最大为 1024 x 1024, 如果不是代码块则有 4096 种参数.
 
 **precinct_size**
-    The precinct size as a 2-tuple.  Must be a power of two along both axes,
-    and must be greater than the code-block size.
+    区域大小是一个2元素元组, 必须沿着两个坐标轴, 并且是代码块大小.
 
 **irreversible**
-    If ``True``, use the lossy Irreversible Color Transformation
-    followed by DWT 9-7.  Defaults to ``False``, which means to use the
-    Reversible Color Transformation with DWT 5-3.
+    如果值为 ``True``, 使用遵循 DWT 9-7 的有损图像转换. 默认值为 ``False``, 代表了 DWT 5-3 标准的可逆图像转换.
 
 **progression**
-    Controls the progression order; must be one of ``"LRCP"``, ``"RLCP"``,
-    ``"RPCL"``, ``"PCRL"``, ``"CPRL"``.  The letters stand for Component,
-    Position, Resolution and Layer respectively and control the order of
-    encoding, the idea being that e.g. an image encoded using LRCP mode can
-    have its quality layers decoded as they arrive at the decoder, while one
-    encoded using RLCP mode will have increasing resolutions decoded as they
-    arrive, and so on.
+    控制主次顺序; 只能为 ``"LRCP"``, ``"RLCP"``, ``"RPCL"``, ``"PCRL"``, ``"CPRL"``.
+    这些字母分别代表了组件, 位置, 分辨率, 和分层控制顺序, 举个例子吧.
+    一个以 LRCP 模式做解码的图像能在质量层做解码, 而 RLCP 模式则可以使用增加分辨率解码器, 等等.
 
 **cinema_mode**
-    Set the encoder to produce output compliant with the digital cinema
-    specifications.  The options here are ``"no"`` (the default),
-    ``"cinema2k-24"`` for 24fps 2K, ``"cinema2k-48"`` for 48fps 2K, and
-    ``"cinema4k-24"`` for 24fps 4K.  Note that for compliant 2K files,
-    *at least one* of your image dimensions must match 2048 x 1080, while
-    for compliant 4K files, *at least one* of the dimensions must match
-    4096 x 2160.
+    设置编码器为数字影院格式. 默认为否, ``"cinema2k-24"`` 是 24fps 2K,
+    ``"cinema2k-48"`` 是 48fps 2K, ``"cinema4k-24"`` 是 24fps 4K.
+    值得注意的是, 要想兼容 2K 文件, *至少* 需要符合 2048 x 1080,
+    要想兼容 4K 文件, *至少* 需要符合 4096 x 2160.
 
 .. note::
 
-   To enable JPEG 2000 support, you need to build and install the OpenJPEG
-   library, version 2.0.0 or higher, before building the Python Imaging
-   Library.
+    要想启用 JPEG 2000 支持, 你需要在编译 PIL 之前编译安装2.0.0或更高版本的 OpenJPEG 库.
 
-   Windows users can install the OpenJPEG binaries available on the
-   OpenJPEG website, but must add them to their PATH in order to use PIL (if
-   you fail to do this, you will get errors about not being able to load the
-   ``_imaging`` DLL).
+    Windows 用户可以在 OpenJPEG 网站上下载到二进制安装包进行安装, 但是必须添加到环境变量才行.
 
 MSP
 ^^^
 
-PIL identifies and reads MSP files from Windows 1 and 2. The library writes
-uncompressed (Windows 1) versions of this format.
+PIL 在Windows1 和2定义了 MSP 文件. 会写入未经压缩的版本.
 
 PCX
 ^^^
 
-PIL reads and writes PCX files containing ``1``, ``L``, ``P``, or ``RGB`` data.
+PIL 可以读写包含了 ``1``, ``L``, ``P``, 或 ``RGB`` 数据的 PCX 文件.
 
 PNG
 ^^^
