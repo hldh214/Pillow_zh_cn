@@ -289,31 +289,24 @@ PIL 可以读写包含了 ``1``, ``L``, ``P``, 或 ``RGB`` 数据的 PCX 文件.
 PNG
 ^^^
 
-PIL identifies, reads, and writes PNG files containing ``1``, ``L``, ``P``,
-``RGB``, or ``RGBA`` data. Interlaced files are supported as of v1.1.7.
+PIL 可以识别和读写含有 ``1``, ``L``, ``P``, ``RGB``, 或 ``RGBA`` 数据的 PNG 文件.
+自从 v1.1.7 版本之后支持隔行扫描.
 
-The :py:meth:`~PIL.Image.Image.open` method sets the following
-:py:attr:`~PIL.Image.Image.info` properties, when appropriate:
+:py:meth:`~PIL.Image.Image.open` 方法为 :py:attr:`~PIL.Image.Image.info` 设置了以下属性:
 
 **gamma**
-    Gamma, given as a floating point number.
+    Gamma值, 应为浮点数.
 
 **transparency**
-    For ``P`` images: Either the palette index for full transparent pixels,
-    or a byte string with alpha values for each palette entry.
+    对于 ``p`` 图像而言: 调色板不论是全透明亦或者是含有 alpha 值都有索引值.
 
-    For ``L`` and ``RGB`` images, the color that represents full transparent
-    pixels in this image.
+    对于 ``L`` 和 ``RGB`` 图像来说, 这表示了图像里面的透明像素点.
 
-    This key is omitted if the image is not a transparent palette image.
+    如果图像不是透明的, 则会被忽略.
 
-``Open`` also sets ``Image.text`` to a list of the values of the
-``tEXt``, ``zTXt``, and ``iTXt`` chunks of the PNG image. Individual
-compressed chunks are limited to a decompressed size of
-``PngImagePlugin.MAX_TEXT_CHUNK``, by default 1MB, to prevent
-decompression bombs. Additionally, the total size of all of the text
-chunks is limited to ``PngImagePlugin.MAX_TEXT_MEMORY``, defaulting to
-64MB.
+``Open`` 也会给 ``Image.text`` 赋 ``tEXt``, ``zTXt``, 和 ``iTXt`` 的值.
+个别压缩格式也有解压大小限制 ``PngImagePlugin.MAX_TEXT_CHUNK``, 默认是 1MB 以防 Zip 炸弹.
+另外, 总大小限制为 ``PngImagePlugin.MAX_TEXT_MEMORY``, 默认是 64MB.
 
 The :py:meth:`~PIL.Image.Image.save` method supports the following options:
 
